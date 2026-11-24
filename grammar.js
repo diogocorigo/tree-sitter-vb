@@ -99,9 +99,9 @@ module.exports = grammar({
       ),
 
     // --- comments ---------------------------------------------------------
-    doc_comment: () => token(prec(3, /'''[^\r\n]*/)),
+    doc_comment: () => token(/'''[^\r\n]*/),
     comment: () =>
-      token(prec(2, choice(/'[^\r\n]*/, new RegExp(`${ci('REM')}(?:[ \\t][^\\r\\n]*)?`)))),
+      token(choice(/'[^\r\n]*/, new RegExp(`${ci('REM')}(?:[ \\t][^\\r\\n]*)?`))),
 
     // --- preprocessor / date ---------------------------------------------
     preproc: () =>
@@ -115,7 +115,7 @@ module.exports = grammar({
 
     interpolated_string: ($) =>
       seq(
-        alias(token(prec(2, '$"')), $.string_start),
+        alias(token('$"'), $.string_start),
         repeat(choice($.string_content, $.escape_sequence, $.interpolation)),
         alias('"', $.string_end),
       ),
@@ -141,13 +141,13 @@ module.exports = grammar({
       ),
 
     // --- words --------------------------------------------------------------
-    boolean: () => token(prec(2, words(['True', 'False']))),
-    nothing: () => token(prec(2, words(['Nothing']))),
-    self: () => token(prec(2, words(['Me', 'MyBase', 'MyClass']))),
-    type_keyword: () => token(prec(2, words(TYPES))),
-    conversion: () => token(prec(2, words(CONVERSIONS))),
-    keyword_operator: () => token(prec(2, words(OPERATOR_WORDS))),
-    keyword: () => token(prec(2, words(KEYWORDS))),
+    boolean: () => token(words(['True', 'False'])),
+    nothing: () => token(words(['Nothing'])),
+    self: () => token(words(['Me', 'MyBase', 'MyClass'])),
+    type_keyword: () => token(words(TYPES)),
+    conversion: () => token(words(CONVERSIONS)),
+    keyword_operator: () => token(words(OPERATOR_WORDS)),
+    keyword: () => token(words(KEYWORDS)),
 
     identifier: () => token(choice(/[\p{L}_][\p{L}\p{N}_]*/, /\[[^\]\r\n]+\]/)),
 
