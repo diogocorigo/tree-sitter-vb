@@ -1,0 +1,9 @@
+{
+  "name": "tree-sitter-vb",
+  "version": "0.1.0",
+  "description": "Lexical tree-sitter grammar for Visual Basic (.NET) used by the Zed VB extension",
+  "license": "MIT",
+  "main": "bindings/node",
+  "tree-sitter": [{ "scope": "source.vb", "file-types": ["vb"] }],
+  "devDependencies": { "tree-sitter-cli": "^0.25.0" }
+}
